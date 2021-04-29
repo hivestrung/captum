@@ -444,7 +444,8 @@ def _run_forward(
 def _select_targets(output: Tensor, target: TargetType) -> Tensor:
     if target is None:
         return output
-
+    if isinstance(output, dict):
+        output = output["scores"]
     num_examples = output.shape[0]
     dims = len(output.shape)
     device = output.device
